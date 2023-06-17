@@ -7,6 +7,8 @@ const mongoose = require('mongoose');
 const { Schema, model } = require("mongoose");
 const app = express();
 
+require('dotenv').config();
+
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -14,6 +16,7 @@ app.use(express.static("public"));
 
 // const items = ["Buy Food", "Cook Food", "Eat Food"];
 const workItems = [];
+const PORT = process.env.PORT || 3000;
 
 // mongoose.connect('mongodb://localhost:27017/todolistDB')  
 mongoose.connect('mongodb+srv://viveknikate:Vivek%4012345@cluster0.1mlfhsg.mongodb.net/todolistDB?retryWrites=true&w=majority')
@@ -130,6 +133,6 @@ app.get("/about", function(req, res){
   res.render("about");
 });
 
-app.listen(3000, function() {
+app.listen(PORT, function() {
   console.log("Server started on port 3000");
 });
