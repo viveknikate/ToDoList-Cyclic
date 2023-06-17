@@ -31,15 +31,15 @@ const itemSchema = new mongoose.Schema({
 const Item = model('Item', itemSchema)
 
 const I1 = new Item({
-  name: 'Item-1'
+  name: 'Welcome to your todolist!'
 });
 
 const I2 = new Item({
-  name: 'Item-2'
+  name: 'Hit the + button to add a new item.'
 })
 
 const I3 = new Item({
-  name: 'Item-3'
+  name: '<== Hit this box to delete an item.'
 })
 
 const defaultItems = [I1,I2,I3]
@@ -58,7 +58,7 @@ app.get("/", function(req, res) {
   Item.find().then((item)=>{
     // console.log(item)
 
-    if(item.length == 0){
+    if(item.length === 0){
       Item.insertMany(defaultItems);
       res.redirect('/')
     }else{
@@ -79,11 +79,12 @@ app.post("/", function(req, res){
   })
   
   if(listName === 'today'){
-    addingItem.save()
+    addingItem.save();
     res.redirect('/')
   }else{
     List.findOne({name:listName}).then((foundElement)=>{
-      foundElement.items.push(addingItem)
+      foundElement.items.push(addingItem);
+
       foundElement.save();
       res.redirect('/'+listName);
     }).catch(()=>{
